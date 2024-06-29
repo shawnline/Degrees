@@ -1,7 +1,7 @@
 import csv
 import sys
-
-from util import Node, StackFrontier, QueueFrontier
+from collections import deque
+from typing import Tuple, List
 
 # Maps names to a set of corresponding person_ids
 names = {}
@@ -24,7 +24,7 @@ def load_data(directory):
             people[row["id"]] = {
                 "name": row["name"],
                 "birth": row["birth"],
-                "movies": set()
+                "movies": set(),
             }
             if row["name"].lower() not in names:
                 names[row["name"].lower()] = {row["id"]}
@@ -38,7 +38,7 @@ def load_data(directory):
             movies[row["id"]] = {
                 "title": row["title"],
                 "year": row["year"],
-                "stars": set()
+                "stars": set(),
             }
 
     # Load stars
@@ -84,16 +84,56 @@ def main():
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 
-def shortest_path(source, target):
+class Person:
+
+    def __init__(self, parent=None, movie: str = "", person_id: str = ""):
+
+        self.parent: Person | None = parent
+        self.movie: str = movie
+        self.id: str = person_id
+
+    def checkIdNotInParent(self, person_id: str) -> bool:
+
+        if self.id == person_id:
+            return False
+        elif self.parent is None:
+            return True
+        return self.parent.checkIdNotInParent(person_id)
+
+    def getPotentialChildren(self) -> set:
+        child_values: set[Tuple[str, str]] = neighbors_for_person(self.id)
+        children = set()
+        for child in child_values:
+            if self.checkIdNotInParent(child[1]):
+                children.add(Person(self, child[0], child[1]))
+        return children
+
+    def getPath(self) -> List:
+        if self.parent is None:
+            return []
+        else:
+            return self.parent.getPath() + [(self.movie, self.id)]
+
+    def checkIfFinalPath(self, target: str) -> bool:
+        return self.id == target
+
+
+def shortest_path(source: str, target: str):
     """
     Returns the shortest list of (movie_id, person_id) pairs
     that connect the source to the target.
 
     If no possible path, returns None.
     """
-
-    # TODO
-    raise NotImplementedError
+    frontier: deque[Person] = deque()
+    if source == target:
+        return []
+    frontier.append(Person(None, "", source))
+    while len(frontier) > 0:
+        new_element: Person = frontier.pop()
+        if new_element.checkIfFinalPath(target):
+            return new_element.getPath()
+        frontier.extendleft(new_element.getPotentialChildren())
 
 
 def person_id_for_name(name):

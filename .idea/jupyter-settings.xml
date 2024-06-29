@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JupyterPersistentConnectionParameters">
+    <option name="knownRemoteServers">
+      <list>
+        <JupyterConnectionParameters>
+          <option name="authType" value="notebook" />
+          <option name="token" value="token=502a527fa5dbc822615667ded4f3c33af2b2a376b2f91996\" />
+          <option name="urlString" value="http://127.0.0.1:8888/" />
+          <authParams2>
+            <map>
+              <entry key="token" value="token=502a527fa5dbc822615667ded4f3c33af2b2a376b2f91996\" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+        <JupyterConnectionParameters>
+          <option name="authType" value="notebook" />
+          <option name="token" value="Binary7301" />
+          <option name="urlString" value="http://192.168.1.30:8888/" />
+          <authParams2>
+            <map>
+              <entry key="token" value="Binary7301" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+      </list>
+    </option>
+    <option name="moduleParameters">
+      <map>
+        <entry key="$PROJECT_DIR$/../GitHub/EE381-Project2/pythonProject11/.idea/pythonProject11.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+              <option name="sdkHomePath" value="$USER_HOME$/.pyenv/versions/3.9.0/bin/python" />
+              <option name="sdkName" value="Python 3.9 (pythonProject)" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
